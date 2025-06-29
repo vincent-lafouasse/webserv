@@ -1,4 +1,4 @@
-set(targetName dummy_test)
+set(targetName DummyTest)
 add_executable(${targetName})
 
 set(tested_source

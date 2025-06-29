@@ -15,10 +15,10 @@ set(tested_files
 )
 list(TRANSFORM tested_files PREPEND ${tested_src_dir}/)
 
-add_subdirectory(dummy_test)
+add_subdirectory(DummyTest)
 
 include(CTest)
 enable_testing()
 
 add_test(NAME DummtTest
-         COMMAND dummy_test)
+		 COMMAND DummyTest)
