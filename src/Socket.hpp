@@ -46,7 +46,7 @@ class Socket {
          *  ie that its address format is u32 address + u16 port
          *  and its address struct is `sockaddr_in`
          */
-        const int connectionDomain = -1;
+        const int connectionDomain = PF_INET;
         const int socketType = SOCK_STREAM;
         const int protocol = 0;  // always 0 as per TLPI 56.2
 
