@@ -17,7 +17,8 @@ class SocketCreationException : public std::runtime_error {
     static std::string format(int domain, int type, int protocol, int errno_) {
         std::stringstream ss;
 
-        ss << "Failed to open socket with:\n";
+        ss << '\n';
+        ss << "# Failed to open socket with:\n";
         ss << "Connection domain:\n---- " << domain << '\n';
         ss << "Socket Type:\n---- " << type << '\n';
         ss << "Protocol:\n---- " << protocol << '\n';
