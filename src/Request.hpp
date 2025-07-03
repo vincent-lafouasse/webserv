@@ -6,6 +6,7 @@ class RequestKind {
     };
 
     RequestKind(Kind k): kind(k) {} // converting ctor
+    // RequestKind parse(string) ? add None variant ?
 
     Kind kind;
 };
