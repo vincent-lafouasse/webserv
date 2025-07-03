@@ -6,7 +6,9 @@
 class Socket {
 public:
     /*
-     * domain: address family
+     * domain (of communication)
+     *      address format (eg IP version) and range (local vs internet)
+     *
      *      PF_LOCAL, local ie host internal
      *      PF_INET, IPv4
      *      PF_INET6, IPv6
