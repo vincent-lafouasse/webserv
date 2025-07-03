@@ -7,12 +7,14 @@ struct RequestKind {
 
     Kind kind;
 
-    RequestKind(Kind k): kind(k) {} // converting ctor
+    RequestKind(Kind k) : kind(k) {}  // converting ctor
     // RequestKind parse(string) ? add None variant ? throw ?
     const char* repr() const {
         switch (kind) {
-            case Get: return "GET";
-            default: return "Not a valid verb";
+            case Get:
+                return "GET";
+            default:
+                return "Not a valid verb";
         }
     }
 };

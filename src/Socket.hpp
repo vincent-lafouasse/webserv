@@ -2,16 +2,18 @@
 
 #include <sys/socket.h>
 #include <unistd.h>
+#include <sstream>
 #include <stdexcept>
 #include <string>
-#include <sstream>
 
-class SocketCreationException: public std::runtime_error
-{
-public:
-    SocketCreationException(int domain, int type, int protocol, int errno_): std::runtime_error(SocketCreationException::format(domain, type, protocol, errno_)) {}
+class SocketCreationException : public std::runtime_error {
+   public:
+    SocketCreationException(int domain, int type, int protocol, int errno_)
+        : std::runtime_error(
+              SocketCreationException::format(domain, type, protocol, errno_)) {
+    }
 
-private:
+   private:
     static std::string format(int domain, int type, int protocol, int errno_) {
         std::stringstream ss;
 
@@ -26,39 +28,38 @@ private:
 };
 
 class Socket {
-public:
+   public:
     Socket() {
         /*
-     *  domain (of communication)
-     *      address format (eg IP version) and range (local vs internet)
-     *
-     *      PF_LOCAL, local ie host internal
-     *      PF_INET, IPv4
-     *      PF_INET6, IPv6
-     *
-     *  type (of socket)
-     *      SOCK_STREAM,  bidirectional, connection-oriented
-     *      SOCK_DGRAM,   connectionless
-     *
-     *  the rest of this will assume domain is IPv4
-     *  ie that its address format is u32 address + u16 port
-     *  and its address struct is `sockaddr_in`
-    */
+         *  domain (of communication)
+         *      address format (eg IP version) and range (local vs internet)
+         *
+         *      PF_LOCAL, local ie host internal
+         *      PF_INET, IPv4
+         *      PF_INET6, IPv6
+         *
+         *  type (of socket)
+         *      SOCK_STREAM,  bidirectional, connection-oriented
+         *      SOCK_DGRAM,   connectionless
+         *
+         *  the rest of this will assume domain is IPv4
+         *  ie that its address format is u32 address + u16 port
+         *  and its address struct is `sockaddr_in`
+         */
         const int connectionDomain = -1;
         const int socketType = SOCK_STREAM;
-        const int protocol = 0; // always 0 as per TLPI 56.2
+        const int protocol = 0;  // always 0 as per TLPI 56.2
 
         this->fd = socket(connectionDomain, socketType, protocol);
         if (this->fd == -1) {
             const int errno_ = errno;
-            throw SocketCreationException(connectionDomain, socketType, protocol, errno_);
+            throw SocketCreationException(connectionDomain, socketType,
+                                          protocol, errno_);
         }
     }
 
-    ~Socket() {
-        close(this->fd);
-    }
+    ~Socket() { close(this->fd); }
 
-private:
+   private:
     int fd;
 };
