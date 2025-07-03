@@ -59,6 +59,9 @@ class Socket {
         }
     }
 
+    // main usage ?
+    std::string getline();
+
     ~Socket() { close(this->fd); }
 
    private:
