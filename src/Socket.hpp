@@ -5,16 +5,24 @@
 
 class Socket {
 public:
-    /*
-     * domain (of communication)
+    Socket() {
+        /*
+     *  domain (of communication)
      *      address format (eg IP version) and range (local vs internet)
      *
      *      PF_LOCAL, local ie host internal
      *      PF_INET, IPv4
      *      PF_INET6, IPv6
+     *
+     *  type (of socket)
+     *      SOCK_STREAM,  bidirectional, connection-oriented
+     *      SOCK_DGRAM,   connectionless
     */
-    Socket(int domain, int type, int protocol) {
-        this->fd = socket(domain, type, protocol);
+        const int connectionDomain = PF_INET;
+        const int socketType = SOCK_STREAM;
+        const int protocol = 0; // always 0 as per TLPI 56.2
+
+        this->fd = socket(connectionDomain, socketType, protocol);
         // throw on 0 ?
     }
 
@@ -24,6 +32,4 @@ public:
 
 private:
     int fd;
-
-    static const int defaultDomain = PF_INET;
 };
