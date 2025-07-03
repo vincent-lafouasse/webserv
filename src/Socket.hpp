@@ -2,6 +2,28 @@
 
 #include <sys/socket.h>
 #include <unistd.h>
+#include <stdexcept>
+#include <string>
+#include <sstream>
+
+class SocketCreationException: public std::runtime_error
+{
+public:
+    SocketCreationException(int domain, int type, int protocol, int errno_): std::runtime_error(SocketCreationException::format(domain, type, protocol, errno_)) {}
+
+private:
+    static std::string format(int domain, int type, int protocol, int errno_) {
+        std::stringstream ss;
+
+        ss << "Failed to open socket with:\n";
+        ss << "Connection domain:\n---- " << domain << '\n';
+        ss << "Socket Type:\n---- " << type << '\n';
+        ss << "Protocol:\n---- " << protocol << '\n';
+        ss << "Errno:\n---- " << errno_ << '\n';
+
+        return ss.str();
+    }
+};
 
 class Socket {
 public:
@@ -22,12 +44,15 @@ public:
      *  ie that its address format is u32 address + u16 port
      *  and its address struct is `sockaddr_in`
     */
-        const int connectionDomain = PF_INET;
+        const int connectionDomain = -1;
         const int socketType = SOCK_STREAM;
         const int protocol = 0; // always 0 as per TLPI 56.2
 
         this->fd = socket(connectionDomain, socketType, protocol);
-        // throw on 0 ?
+        if (this->fd == -1) {
+            const int errno_ = errno;
+            throw SocketCreationException(connectionDomain, socketType, protocol, errno_);
+        }
     }
 
     ~Socket() {
