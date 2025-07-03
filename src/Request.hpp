@@ -1,14 +1,14 @@
 #pragma once
 
 class Request {
-public:
-	class RequestKind {
-		enum Kind {
-			Get,
-		};
-	};
+   public:
+    class RequestKind {
+        enum Kind {
+            Get,
+        };
+    };
 
-	typedef RequestKind Kind;
+    typedef RequestKind Kind;
 
-	Kind kind;
+    Kind kind;
 };
