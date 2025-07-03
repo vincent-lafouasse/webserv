@@ -17,6 +17,10 @@ public:
      *  type (of socket)
      *      SOCK_STREAM,  bidirectional, connection-oriented
      *      SOCK_DGRAM,   connectionless
+     *
+     *  the rest of this will assume domain is IPv4
+     *  ie that its address format is u32 address + u16 port
+     *  and its address struct is `sockaddr_in`
     */
         const int connectionDomain = PF_INET;
         const int socketType = SOCK_STREAM;
