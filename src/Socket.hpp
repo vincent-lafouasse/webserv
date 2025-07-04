@@ -70,7 +70,7 @@ class Socket {
             /* .sin_family = */ connectionDomain,
             /* .sin_port = */ htons(port),
             /* .sin_addr = */ internetAddress,
-            /* .sin_zero = */ {0},
+            /* .sin_zero = */ {0}, // alignment
         };
         socklen_t addressLen = sizeof(socketAddress);
 
