@@ -83,7 +83,7 @@ class Socket {
             throw std::runtime_error("bind error");
         }
 
-        const int backlog = 10;  // number of pending connections before the
+        const int backlog = 5;  // number of pending connections before the
                                  // server starts refusing
         // pending connection == cleint calls `connect` before the server calls
         // `accept`
