@@ -85,6 +85,8 @@ class Socket {
 
         const int backlog = 10;  // number of pending connections before the
                                  // server starts refusing
+        // pending connection == cleint calls `connect` before the server calls
+        // `accept`
         if (listen(this->fd, backlog) < 0) {
             std::perror("listen error");
             throw std::runtime_error("listen error");
