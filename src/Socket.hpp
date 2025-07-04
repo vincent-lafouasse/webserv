@@ -4,6 +4,7 @@
 #include <sys/socket.h>
 #include <unistd.h>
 #include <cerrno>
+#include <cstdio>
 #include <sstream>
 #include <stdexcept>
 #include <string>
@@ -74,12 +75,19 @@ class Socket {
             /* .sin_addr = */ internetAddress,  // {u32}
             /* .sin_zero = */ {0},              // alignment
         };
-        socklen_t addressLen = sizeof(socketAddress);
+        const socklen_t addressLen = sizeof(socketAddress);
 
         if (bind(this->fd, reinterpret_cast<sockaddr*>(&socketAddress),
                  addressLen) < 0) {
-            // bind error
+            std::perror("bind error");
             throw std::runtime_error("bind error");
+        }
+
+        const int backlog = 10;  // number of pending connections before the
+                                 // server starts refusing
+        if (listen(this->fd, backlog) < 0) {
+            std::perror("listen error");
+            throw std::runtime_error("listen error");
         }
     }
 
