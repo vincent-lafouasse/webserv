@@ -45,6 +45,8 @@ std::string getline(int fd) {
         } else {
             out += buffer;
         }
+
+        std::memset(rawBuffer, 0, bufferSize);
     } while (bytesRead == bufferSize);
 
     return out;
