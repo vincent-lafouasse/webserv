@@ -1,7 +1,7 @@
 #include "getline.h"
 
-#include <map>
 #include <unistd.h>
+#include <map>
 
 typedef std::string::size_type usize;
 
@@ -14,7 +14,7 @@ std::string getline(int fd) {
         return NULL;
     }
 
-    std::string& rem = remainders[fd];  // what if there's nothing there
+    std::string& rem = remainders[fd];  // inserts default cted if absent
 
     usize newline = rem.find('\n');
     if (newline != std::string::npos) {
@@ -26,8 +26,22 @@ std::string getline(int fd) {
     std::string out = rem;
     rem.clear();
 
-    char buffer[bufferSize] = {0};
-    ssize_t bytesRead = read(fd, buffer, bufferSize);
+    char rawBuffer[bufferSize] = {0};
+    ssize_t bytesRead;
+    std::string buffer;
+    do {
+        bytesRead = read(fd, rawBuffer, bufferSize);
+        if (bytesRead < 0) {
+            return NULL;
+        } else if (bytesRead == 0 && out.empty()) {
+            return NULL;
+        }
+
+        buffer = rawBuffer;
+        if ((newline = buffer.find('\n')) != std::string::npos) {
+        }
+    } while (bytesRead == bufferSize &&
+             (newline = buffer.find('\n')) != std::string::npos);
 
     return out;
 }
