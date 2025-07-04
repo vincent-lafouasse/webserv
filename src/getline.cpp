@@ -26,7 +26,7 @@ std::string getline(int fd) {
     std::string out = rem;
     rem.clear();
 
-    char rawBuffer[bufferSize] = {0};
+    char rawBuffer[bufferSize + 1] = {0};
     ssize_t bytesRead;
     std::string buffer;
     do {
