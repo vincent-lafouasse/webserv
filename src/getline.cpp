@@ -10,7 +10,7 @@ std::string getline(int fd) {
     static std::map<int, std::string> remainders;
 
     if (fd < 0) {
-        return "";
+        return NULL;
     }
 
     std::string& rem = remainders[fd];
