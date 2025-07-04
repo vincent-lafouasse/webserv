@@ -13,14 +13,17 @@ std::string getline(int fd) {
         return NULL;
     }
 
-    std::string& rem = remainders[fd];
-    std::string out;
+    std::string& rem = remainders[fd];  // what if there's nothing there
 
-    usize maybeNewline = rem.find('\n');
-    if (maybeNewline != std::string::npos) {
-        out = rem.substr(0, maybeNewline);
-        // rem = rem.subs
+    usize newline = rem.find('\n');
+    if (newline != std::string::npos) {
+        const std::string out = rem.substr(0, newline);
+        rem = rem.substr(newline + 1, rem.size() - 1 - newline);
+        return out;
     }
+
+    std::string out = rem;
+    rem.clear();
 
     return out;
 }
