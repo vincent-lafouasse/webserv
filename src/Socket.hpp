@@ -107,6 +107,14 @@ class Socket {
         return write(this->fd, buffer, n);
     }
 
+    ssize_t sendTo(void* buffer, std::size_t n, int flags) {
+        return send(this->fd, buffer, n, flags);
+    }
+
+    ssize_t recvFrom(void* buffer, std::size_t n, int flags) {
+        return recv(this->fd, buffer, n, flags);
+    }
+
     ~Socket() { close(this->fd); }
 
    private:
