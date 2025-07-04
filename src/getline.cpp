@@ -39,9 +39,13 @@ std::string getline(int fd) {
 
         buffer = rawBuffer;
         if ((newline = buffer.find('\n')) != std::string::npos) {
+            const std::string out = buffer.substr(0, newline);
+            rem = buffer.substr(newline + 1, buffer.size() - 1 - newline);
+            return out;
+        } else {
+            out += buffer;
         }
-    } while (bytesRead == bufferSize &&
-             (newline = buffer.find('\n')) != std::string::npos);
+    } while (bytesRead == bufferSize);
 
     return out;
 }
