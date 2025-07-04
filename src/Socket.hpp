@@ -84,7 +84,7 @@ class Socket {
         }
 
         const int backlog = 5;  // number of pending connections before the
-                                 // server starts refusing
+                                // server starts refusing
         // pending connection == cleint calls `connect` before the server calls
         // `accept`
         if (listen(this->fd, backlog) < 0) {
@@ -95,6 +95,14 @@ class Socket {
 
     // main usage ?
     std::string getline();
+
+    ssize_t readBytes(void* buffer, std::size_t n) {
+        return read(this->fd, buffer, n);
+    }
+
+    ssize_t writeBytes(void* buffer, std::size_t n) {
+        return write(this->fd, buffer, n);
+    }
 
     ~Socket() { close(this->fd); }
 
