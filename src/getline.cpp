@@ -30,8 +30,8 @@ std::string getline(int fd) {
     ssize_t bytesRead;
     std::string buffer;
     do {
-        // might be possible to read directly into the std::string but this is
-        // fine
+        // might be possible to read directly into the std::string
+        // but this is fine
         bytesRead = read(fd, rawBuffer, bufferSize);
         if (bytesRead < 0) {
             return NULL;
