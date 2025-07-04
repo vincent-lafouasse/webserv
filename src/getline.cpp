@@ -1,6 +1,7 @@
 #include "getline.h"
 
 #include <map>
+#include <unistd.h>
 
 typedef std::string::size_type usize;
 
@@ -24,6 +25,9 @@ std::string getline(int fd) {
 
     std::string out = rem;
     rem.clear();
+
+    char buffer[bufferSize] = {0};
+    ssize_t bytesRead = read(fd, buffer, bufferSize);
 
     return out;
 }
