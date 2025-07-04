@@ -33,6 +33,7 @@ class SocketCreationException : public std::runtime_error {
 
 class Socket {
    public:
+    // creates a passive socket, ie a server
     Socket() {
         /*
          *  domain (of communication)
