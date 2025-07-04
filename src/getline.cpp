@@ -38,15 +38,16 @@ std::string getline(int fd) {
         }
 
         buffer = rawBuffer;
-        if ((newline = buffer.find('\n')) != std::string::npos) {
+        std::memset(rawBuffer, 0, bufferSize);
+
+        newline = buffer.find('\n');
+        if (newline != std::string::npos) {
             const std::string out = buffer.substr(0, newline);
             rem = buffer.substr(newline + 1, buffer.size() - 1 - newline);
             return out;
         } else {
             out += buffer;
         }
-
-        std::memset(rawBuffer, 0, bufferSize);
     } while (bytesRead == bufferSize);
 
     return out;
