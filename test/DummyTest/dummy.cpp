@@ -1,6 +1,5 @@
 #include "gtest/gtest.h"
 
-TEST(Dummy, Dummy)
-{
+TEST(Dummy, Dummy) {
     SUCCEED();
 }
