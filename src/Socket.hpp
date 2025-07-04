@@ -60,17 +60,19 @@ class Socket {
                                           protocol, errno_);
         }
 
+        // contains IP address as a u32
         in_addr internetAddress = {
-            /* .s_addr = */ INADDR_ANY, // bind to all interfaces
+            /* .s_addr = */ INADDR_ANY,  // bind to all interfaces
             // alternatively, `inet_addr("127.0.0.1")` or something
+            // inet_addr is fallible
         };
 
         const int port = 8080;
         sockaddr_in socketAddress = {
             /* .sin_family = */ connectionDomain,
-            /* .sin_port = */ htons(port),
-            /* .sin_addr = */ internetAddress,
-            /* .sin_zero = */ {0}, // alignment
+            /* .sin_port = */ htons(port),      // u16
+            /* .sin_addr = */ internetAddress,  // {u32}
+            /* .sin_zero = */ {0},              // alignment
         };
         socklen_t addressLen = sizeof(socketAddress);
 
