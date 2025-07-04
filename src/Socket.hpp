@@ -85,8 +85,8 @@ class Socket {
 
         const int backlog = 5;  // number of pending connections before the
                                 // server starts refusing
-        // pending connection == cleint calls `connect` before the server calls
-        // `accept`
+        // pending connection ==
+        // client calls `connect` before the server calls `accept`
 
         // marks the socket as a passive socket, ie a server
         if (listen(this->fd, backlog) < 0) {
