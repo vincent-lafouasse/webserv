@@ -1,6 +1,7 @@
 #pragma once
 
 #include <sys/socket.h>
+#include <netinet/in.h>
 #include <unistd.h>
 #include <cerrno>
 #include <sstream>
@@ -57,6 +58,23 @@ class Socket {
             const int errno_ = errno;
             throw SocketCreationException(connectionDomain, socketType,
                                           protocol, errno_);
+        }
+
+        in_addr internetAddress = {
+            .s_addr = INADDR_ANY,
+        };
+
+        const int port = 8080;
+        sockaddr_in socketAddress = {
+            .sin_family = connectionDomain,
+            .sin_port = htons(port),
+            .sin_addr = internetAddress,
+            .sin_zero = {0},
+        };
+        socklen_t addressLen = sizeof(socketAddress);
+
+        if (bind(this->fd, reinterpret_cast<sockaddr*>(&socketAddress), addressLen) < 0) {
+            // bind error
         }
     }
 
