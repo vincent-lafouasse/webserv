@@ -61,7 +61,8 @@ class Socket {
         }
 
         in_addr internetAddress = {
-            /* .s_addr = */ INADDR_ANY,
+            /* .s_addr = */ INADDR_ANY, // bind to all interfaces
+            // alternatively, `inet_addr("127.0.0.1")` or something
         };
 
         const int port = 8080;
