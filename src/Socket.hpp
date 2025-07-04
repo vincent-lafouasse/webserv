@@ -79,6 +79,7 @@ class Socket {
         if (bind(this->fd, reinterpret_cast<sockaddr*>(&socketAddress),
                  addressLen) < 0) {
             // bind error
+            throw std::runtime_error("bind error");
         }
     }
 
