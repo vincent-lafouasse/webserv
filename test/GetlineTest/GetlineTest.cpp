@@ -1,13 +1,13 @@
-#include <unistd.h>
 #include <fcntl.h>
+#include <unistd.h>
 
 #include "gtest/gtest.h"
 
 #include "getline.h"
 
 struct File {
-    File(const std::string& path): fd(open(path.c_str(), O_RDONLY)) {}
-    File(int fd): fd(fd) {}
+    File(const std::string& path) : fd(open(path.c_str(), O_RDONLY)) {}
+    File(int fd) : fd(fd) {}
     ~File() { close(fd); }
     int fd;
 };
