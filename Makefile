@@ -67,6 +67,9 @@ run_memcheck: build
 update: clean
 	mkdir -p build
 	bear  --output build/compile_commands.json -- make build
+	# merge with CMake maintained data
+	jq -s add build/compile_commands.json build/test/compile_commands.json >build/tmp
+	mv build/tmp build/compile_commands.json
 
 # aliases
 .PHONY: b c u r rm t vt
