@@ -1,6 +1,7 @@
 #include "getline.h"
 
 #include <unistd.h>
+#include <cstring>
 #include <map>
 
 typedef std::string::size_type usize;
