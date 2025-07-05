@@ -7,7 +7,7 @@ set(CMAKE_EXPORT_COMPILE_COMMANDS TRUE)
 
 include(fetch_gtest.cmake)
 
-set(ROOT ../)
+set(ROOT ${CMAKE_SOURCE_DIR}/..)
 set(tested_src_dir ${ROOT}/src/)
 set(tested_include_dir ${tested_src_dir}/)
 
@@ -16,9 +16,12 @@ set(tested_files
 list(TRANSFORM tested_files PREPEND ${tested_src_dir}/)
 
 add_subdirectory(DummyTest)
+add_subdirectory(GetlineTest)
 
 include(CTest)
 enable_testing()
 
-add_test(NAME DummtTest
+add_test(NAME DummyTest
 		 COMMAND DummyTest)
+add_test(NAME GetlineTest
+		 COMMAND GetlineTest)
