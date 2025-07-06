@@ -25,13 +25,12 @@ public:
     void swap(Option&);
 
     // accessors
-    const T& unwrap() const;  // throws on bad access
+    const T& unwrap() const;  // checked, throws on bad access
     const T& unwrapOr(const T& defaultValue) const /* noexcept */;
+    const T* operator->() const;  // unchecked, UB on bad access
+    const T& operator*() const;   // in reality, T()
 
     bool is() const;
-
-    // const T* operator->() const; // UB on bad access
-    // const T& operator*() const; // UB on bad access
 
     typedef BadOptionAccessException BadOptionAccessException;  // reexport
 
@@ -109,6 +108,16 @@ const T& Option<T>::unwrapOr(const T& defaultValue) const {
     } else {
         return defaultValue;
     }
+}
+
+template <typename T>
+const T& Option<T>::operator*() const {
+    return this->val;
+}
+
+template <typename T>
+const T* Option<T>::operator->() const {
+    return &this->val;
 }
 
 template <typename T>
