@@ -80,7 +80,7 @@ Option<T> Option<T>::Some(T val) {
 
 template <typename T>
 void Option<T>::reset() {
-    this->swap(Option<T>());
+    this->swap(None());
 }
 
 template <typename T>
