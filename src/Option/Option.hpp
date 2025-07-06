@@ -1,5 +1,12 @@
 #pragma once
 
+#include <stdexcept>
+
+class BadOptionAccessException : public std::runtime_error {
+public:
+    BadOptionAccessException();
+};
+
 // meant mostly for value types
 template <typename T>
 class Option {
@@ -10,6 +17,8 @@ public:
     Option(const Option&);
     Option& operator=(const Option&);
     ~Option();
+
+    typedef BadOptionAccessException BadOptionAccessException; // reexport
 
 private:
     T val;
