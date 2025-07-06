@@ -2,4 +2,6 @@
 
 #include <string>
 
-std::string getline(int fd);
+#include "Option/Option.hpp"
+
+Option<std::string> getline(int fd);

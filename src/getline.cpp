@@ -5,14 +5,15 @@
 #include <map>
 
 typedef std::string::size_type usize;
+typedef Option<std::string> S;
 
 static const usize bufferSize = 64;
 
-std::string getline(int fd) {
+Option<std::string> getline(int fd) {
     static std::map<int, std::string> remainders;
 
     if (fd < 0) {
-        return NULL;
+        return S::None();
     }
 
     std::string& rem = remainders[fd];  // inserts default cted if absent
@@ -21,7 +22,7 @@ std::string getline(int fd) {
     if (newline != std::string::npos) {
         const std::string out = rem.substr(0, newline);
         rem = rem.substr(newline + 1, rem.size() - 1 - newline);
-        return out;
+        return S::Some(out);
     }
 
     std::string out = rem;
@@ -35,9 +36,9 @@ std::string getline(int fd) {
         // but this is fine
         bytesRead = read(fd, rawBuffer, bufferSize);
         if (bytesRead < 0) {
-            return NULL;
+            return S::None();
         } else if (bytesRead == 0 && out.empty()) {
-            return NULL;
+            return S::None();
         }
 
         buffer = rawBuffer;
@@ -47,11 +48,11 @@ std::string getline(int fd) {
         if (newline != std::string::npos) {
             const std::string out = buffer.substr(0, newline);
             rem = buffer.substr(newline + 1, buffer.size() - 1 - newline);
-            return out;
+            return S::Some(out);
         } else {
             out += buffer;
         }
     } while (bytesRead == bufferSize);
 
-    return out;
+    return S::Some(out);
 }
