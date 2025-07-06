@@ -9,6 +9,8 @@
 #include <stdexcept>
 #include <string>
 
+#include "IO/getline.h"
+
 class SocketCreationException : public std::runtime_error {
 public:
     SocketCreationException(int domain, int type, int protocol, int errno_)
@@ -94,8 +96,7 @@ public:
         }
     }
 
-    // main usage ?
-    std::string getline();
+    Option<std::string> getline() { return ::getline(this->fd); }
 
     ssize_t read(void* buffer, std::size_t n) {
         return ::read(this->fd, buffer, n);
