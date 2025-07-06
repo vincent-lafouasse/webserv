@@ -18,6 +18,11 @@ class Option {
     Option& operator=(const Option&) /* noexcept */;
     ~Option() /* noexcept */;
 
+    // convenience constructors
+
+    static Option None();
+    static Option Some(T val);
+
     // mutators
 
     void reset();
@@ -60,6 +65,16 @@ Option<T>& Option<T>::operator=(const Option& o) {
 
 template <typename T>
 Option<T>::~Option() {}
+
+template <typename T>
+Option<T> Option<T>::None() {
+    return Option<T>();
+}
+
+template <typename T>
+Option<T> Option<T>::Some(T val) {
+    return Option<T>(val);
+}
 
 // ----- Mutators
 
