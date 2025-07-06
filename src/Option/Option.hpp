@@ -54,7 +54,7 @@ template <typename T>
 Option<T>::Option() : val(), isSome(false) {}
 
 template <typename T>
-Option<T>::Option(const Option& o) : val(o.val), isSome(o.iSome) {}
+Option<T>::Option(const Option& o) : val(o.val), isSome(o.isSome) {}
 
 template <typename T>
 Option<T>& Option<T>::operator=(const Option& o) {
