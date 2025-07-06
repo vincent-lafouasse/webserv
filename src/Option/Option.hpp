@@ -11,12 +11,17 @@ public:
 template <typename T>
 class Option {
 public:
-    Option(T value);
+    Option(T value); // converting constructor
 
-    Option();
-    Option(const Option&);
-    Option& operator=(const Option&);
-    ~Option();
+    Option() /* noexcept */;
+    Option(const Option&) /* noexcept */;
+    Option& operator=(const Option&) /* noexcept */;
+    ~Option() /* noexcept */;
+
+    const T& get() const;
+    const T& getOr(const T& defaultValue) const /* noexcept */;
+
+    operator bool() const /* noexcept */;
 
     typedef BadOptionAccessException BadOptionAccessException; // reexport
 
@@ -45,3 +50,28 @@ Option<T>& Option<T>::operator=(const Option& o) {
 
 template <typename T>
 Option<T>::~Option() {}
+
+// ----- Accessors
+
+template <typename T>
+const T& Option<T>::get() const {
+    if (this->isSome) {
+        return this->val;
+    } else {
+        throw BadOptionAccessException();
+    }
+}
+
+template <typename T>
+const T& Option<T>::getOr(const T& defaultValue) const {
+    if (this->isSome) {
+        return this->val;
+    } else {
+        return defaultValue;
+    }
+}
+
+template <typename T>
+Option<T>::operator bool() const {
+    return this->isSome;
+}
