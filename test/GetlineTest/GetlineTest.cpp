@@ -52,7 +52,6 @@ TEST(Getline, ShortLines) {
     ASSERT_FALSE(s);
 }
 
-
 TEST(Getline, LongLines) {
     File f(dir + "/long_lines.txt");
     ASSERT_NE(f.fd, -1);
@@ -61,7 +60,7 @@ TEST(Getline, LongLines) {
 
     S s = getline(f.fd);
     ASSERT_TRUE(s);
-    //std::cout << "line: " << s.get() << std::endl;
+    // std::cout << "line: " << s.get() << std::endl;
     ASSERT_TRUE(s.get() == std::string(length, '4'));
 
     s = getline(f.fd);
