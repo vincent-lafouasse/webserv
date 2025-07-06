@@ -2,7 +2,7 @@ set(targetName GetlineTest)
 add_executable(${targetName})
 
 set(tested_source
-	getline.cpp
+	IO/getline.cpp
 	Option/Option.cpp
 )
 list(TRANSFORM tested_source PREPEND ${tested_src_dir}/)
