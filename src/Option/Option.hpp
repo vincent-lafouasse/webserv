@@ -18,6 +18,13 @@ class Option {
     Option& operator=(const Option&) /* noexcept */;
     ~Option() /* noexcept */;
 
+    // mutators
+
+    void reset();
+    void swap(Option&);
+
+    // accessors
+
     // const T* operator->() const; // UB on bad access
     // const T& operator*() const; // UB on bad access
 
@@ -53,6 +60,26 @@ Option<T>& Option<T>::operator=(const Option& o) {
 
 template <typename T>
 Option<T>::~Option() {}
+
+// ----- Mutators
+
+template <typename T>
+void Option<T>::reset() {
+    this->swap(Option<T>());
+}
+
+template <typename T>
+void Option<T>::swap(Option& other) {
+    // inelegant, dont care
+    T tempT = this->val;
+    bool tempBool = this->isSome;
+
+    this->val = other.val;
+    this->isSome = other.isSome;
+
+    other.val = tempT;
+    other.isSome = tempBool;
+}
 
 // ----- Accessors
 
