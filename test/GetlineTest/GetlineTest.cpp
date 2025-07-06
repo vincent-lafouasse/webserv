@@ -5,6 +5,8 @@
 
 #include "getline.h"
 
+typedef Option<std::string> S;
+
 struct File {
     File(const std::string& path) : fd(open(path.c_str(), O_RDONLY)) {}
     File(int fd) : fd(fd) {}
@@ -12,9 +14,10 @@ struct File {
     int fd;
 };
 
-TEST(Getline, Dummy) {
-    File f("./main.cpp");
+TEST(Getline, Nonexistant) {
 
-    std::string line;
-    SUCCEED();
+    File f("./does_not_exist");
+    ASSERT_EQ(f.fd, -1);
+
+    ASSERT_FALSE(getline(f.fd));
 }
