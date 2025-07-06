@@ -33,8 +33,8 @@ public:
     // const T* operator->() const; // UB on bad access
     // const T& operator*() const; // UB on bad access
 
-    const T& get() const;  // throws on bad access
-    const T& getOr(const T& defaultValue) const /* noexcept */;
+    const T& unwrap() const;  // throws on bad access
+    const T& unwrapOr(const T& defaultValue) const /* noexcept */;
 
     operator bool() const /* noexcept */;
 
@@ -99,7 +99,7 @@ void Option<T>::swap(Option& other) {
 // ----- Accessors
 
 template <typename T>
-const T& Option<T>::get() const {
+const T& Option<T>::unwrap() const {
     if (this->isSome) {
         return this->val;
     } else {
@@ -108,7 +108,7 @@ const T& Option<T>::get() const {
 }
 
 template <typename T>
-const T& Option<T>::getOr(const T& defaultValue) const {
+const T& Option<T>::unwrapOr(const T& defaultValue) const {
     if (this->isSome) {
         return this->val;
     } else {

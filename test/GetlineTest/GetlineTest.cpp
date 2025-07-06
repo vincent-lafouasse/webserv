@@ -5,8 +5,6 @@
 
 #include "IO/getline.h"
 
-typedef Option<std::string> S;
-
 struct File {
     File(const std::string& path) : fd(open(path.c_str(), O_RDONLY)) {}
     File(int fd) : fd(fd) {}
@@ -27,29 +25,29 @@ TEST(Getline, ShortLines) {
     File f(dir + "/short_lines.txt");
     ASSERT_NE(f.fd, -1);
 
-    S s = getline(f.fd);
-    ASSERT_TRUE(s);
-    ASSERT_TRUE(s.get() == "444");
+    Option<std::string> line = getline(f.fd);
+    ASSERT_TRUE(line);
+    ASSERT_TRUE(line.unwrap() == "444");
 
-    s = getline(f.fd);
-    ASSERT_TRUE(s);
-    ASSERT_TRUE(s.get() == "222");
+    line = getline(f.fd);
+    ASSERT_TRUE(line);
+    ASSERT_TRUE(line.unwrap() == "222");
 
-    s = getline(f.fd);
-    ASSERT_TRUE(s);
-    ASSERT_TRUE(s.get() == "000");
+    line = getline(f.fd);
+    ASSERT_TRUE(line);
+    ASSERT_TRUE(line.unwrap() == "000");
 
-    s = getline(f.fd);
-    ASSERT_FALSE(s);
+    line = getline(f.fd);
+    ASSERT_FALSE(line);
 
-    s = getline(f.fd);
-    ASSERT_FALSE(s);
+    line = getline(f.fd);
+    ASSERT_FALSE(line);
 
-    s = getline(f.fd);
-    ASSERT_FALSE(s);
+    line = getline(f.fd);
+    ASSERT_FALSE(line);
 
-    s = getline(f.fd);
-    ASSERT_FALSE(s);
+    line = getline(f.fd);
+    ASSERT_FALSE(line);
 }
 
 TEST(Getline, LongLines) {
@@ -58,28 +56,28 @@ TEST(Getline, LongLines) {
 
     const std::size_t length = 420;
 
-    S s = getline(f.fd);
-    ASSERT_TRUE(s);
-    // std::cout << "line: " << s.get() << std::endl;
-    ASSERT_TRUE(s.get() == std::string(length, '4'));
+    Option<std::string> line = getline(f.fd);
+    ASSERT_TRUE(line);
+    // std::cout << "line: " << line.unwrap() << std::endl;
+    ASSERT_TRUE(line.unwrap() == std::string(length, '4'));
 
-    s = getline(f.fd);
-    ASSERT_TRUE(s);
-    ASSERT_TRUE(s.get() == std::string(length, '2'));
+    line = getline(f.fd);
+    ASSERT_TRUE(line);
+    ASSERT_TRUE(line.unwrap() == std::string(length, '2'));
 
-    s = getline(f.fd);
-    ASSERT_TRUE(s);
-    ASSERT_TRUE(s.get() == std::string(length, '0'));
+    line = getline(f.fd);
+    ASSERT_TRUE(line);
+    ASSERT_TRUE(line.unwrap() == std::string(length, '0'));
 
-    s = getline(f.fd);
-    ASSERT_FALSE(s);
+    line = getline(f.fd);
+    ASSERT_FALSE(line);
 
-    s = getline(f.fd);
-    ASSERT_FALSE(s);
+    line = getline(f.fd);
+    ASSERT_FALSE(line);
 
-    s = getline(f.fd);
-    ASSERT_FALSE(s);
+    line = getline(f.fd);
+    ASSERT_FALSE(line);
 
-    s = getline(f.fd);
-    ASSERT_FALSE(s);
+    line = getline(f.fd);
+    ASSERT_FALSE(line);
 }
