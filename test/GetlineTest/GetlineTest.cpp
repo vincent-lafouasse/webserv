@@ -15,7 +15,6 @@ struct File {
 };
 
 TEST(Getline, Nonexistant) {
-
     File f("./does_not_exist");
     ASSERT_EQ(f.fd, -1);
 
