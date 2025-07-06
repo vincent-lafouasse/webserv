@@ -3,6 +3,6 @@
 #include <string>
 
 class Config {
-public:
+   public:
     Config(const std::string& path);
 };

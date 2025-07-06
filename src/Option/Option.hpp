@@ -3,15 +3,15 @@
 #include <stdexcept>
 
 class BadOptionAccessException : public std::runtime_error {
-public:
+   public:
     BadOptionAccessException();
 };
 
 // meant mostly for value types
 template <typename T>
 class Option {
-public:
-    Option(T value); // converting constructor
+   public:
+    Option(T value);  // converting constructor
 
     Option() /* noexcept */;
     Option(const Option&) /* noexcept */;
@@ -21,14 +21,14 @@ public:
     // const T* operator->() const; // UB on bad access
     // const T& operator*() const; // UB on bad access
 
-    const T& get() const; // throws on bad access
+    const T& get() const;  // throws on bad access
     const T& getOr(const T& defaultValue) const /* noexcept */;
 
     operator bool() const /* noexcept */;
 
-    typedef BadOptionAccessException BadOptionAccessException; // reexport
+    typedef BadOptionAccessException BadOptionAccessException;  // reexport
 
-private:
+   private:
     T val;
     bool isSome;
 };
@@ -36,13 +36,13 @@ private:
 // ----- Implementation
 
 template <typename T>
-Option<T>::Option(T value): val(value), isSome(true) {}
+Option<T>::Option(T value) : val(value), isSome(true) {}
 
 template <typename T>
-Option<T>::Option(): val(), isSome(false) {}
+Option<T>::Option() : val(), isSome(false) {}
 
 template <typename T>
-Option<T>::Option(const Option& o): val(o.val), isSome(o.iSome) {}
+Option<T>::Option(const Option& o) : val(o.val), isSome(o.iSome) {}
 
 template <typename T>
 Option<T>& Option<T>::operator=(const Option& o) {

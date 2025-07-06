@@ -4,4 +4,4 @@ namespace {
 const char* badOptionAccessMessage = "Attempt to unwrap None value";
 };
 
-BadOptionAccessException::BadOptionAccessException(): std::runtime_error("") {}
+BadOptionAccessException::BadOptionAccessException() : std::runtime_error("") {}
