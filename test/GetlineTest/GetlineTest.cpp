@@ -51,3 +51,35 @@ TEST(Getline, ShortLines) {
     s = getline(f.fd);
     ASSERT_FALSE(s);
 }
+
+
+TEST(Getline, LongLines) {
+    File f(dir + "/long_lines.txt");
+    ASSERT_NE(f.fd, -1);
+
+    const std::size_t length = 420;
+
+    S s = getline(f.fd);
+    ASSERT_TRUE(s);
+    ASSERT_TRUE(s.get() == std::string(length, '4'));
+
+    s = getline(f.fd);
+    ASSERT_TRUE(s);
+    ASSERT_TRUE(s.get() == std::string(length, '2'));
+
+    s = getline(f.fd);
+    ASSERT_TRUE(s);
+    ASSERT_TRUE(s.get() == std::string(length, '0'));
+
+    s = getline(f.fd);
+    ASSERT_FALSE(s);
+
+    s = getline(f.fd);
+    ASSERT_FALSE(s);
+
+    s = getline(f.fd);
+    ASSERT_FALSE(s);
+
+    s = getline(f.fd);
+    ASSERT_FALSE(s);
+}
