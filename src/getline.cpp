@@ -46,9 +46,9 @@ Option<std::string> getline(int fd) {
 
         newline = buffer.find('\n');
         if (newline != std::string::npos) {
-            const std::string out = buffer.substr(0, newline);
+            const std::string end = buffer.substr(0, newline);
             rem = buffer.substr(newline + 1, buffer.size() - 1 - newline);
-            return S::Some(out);
+            return S::Some(out + end);
         } else {
             out += buffer;
         }
