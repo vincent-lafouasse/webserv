@@ -18,7 +18,10 @@ public:
     Option& operator=(const Option&) /* noexcept */;
     ~Option() /* noexcept */;
 
-    const T& get() const;
+    // const T* operator->() const; // UB on bad access
+    // const T& operator*() const; // UB on bad access
+
+    const T& get() const; // throws on bad access
     const T& getOr(const T& defaultValue) const /* noexcept */;
 
     operator bool() const /* noexcept */;
