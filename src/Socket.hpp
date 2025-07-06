@@ -70,12 +70,10 @@ class Socket {
         };
 
         const int port = 8080;
-        sockaddr_in socketAddress = {
-            /* .sin_family = */ connectionDomain,
-            /* .sin_port = */ htons(port),      // u16
-            /* .sin_addr = */ internetAddress,  // {u32}
-            /* .sin_zero = */ {0},              // alignment
-        };
+        sockaddr_in socketAddress = {};
+        socketAddress.sin_family = connectionDomain;
+        socketAddress.sin_port = htons(port);
+        socketAddress.sin_addr = internetAddress;
         const socklen_t addressLen = sizeof(socketAddress);
 
         if (bind(this->fd, reinterpret_cast<sockaddr*>(&socketAddress),
