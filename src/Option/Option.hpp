@@ -3,14 +3,14 @@
 #include <stdexcept>
 
 class BadOptionAccessException : public std::runtime_error {
-   public:
+public:
     BadOptionAccessException();
 };
 
 // meant mostly for value types
 template <typename T>
 class Option {
-   public:
+public:
     Option(T value);  // converting constructor
 
     Option() /* noexcept */;
@@ -40,7 +40,7 @@ class Option {
 
     typedef BadOptionAccessException BadOptionAccessException;  // reexport
 
-   private:
+private:
     T val;
     bool isSome;
 };

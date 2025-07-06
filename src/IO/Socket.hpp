@@ -10,13 +10,13 @@
 #include <string>
 
 class SocketCreationException : public std::runtime_error {
-   public:
+public:
     SocketCreationException(int domain, int type, int protocol, int errno_)
         : std::runtime_error(
               SocketCreationException::format(domain, type, protocol, errno_)) {
     }
 
-   private:
+private:
     static std::string format(int domain, int type, int protocol, int errno_) {
         std::stringstream ss;
 
@@ -32,7 +32,7 @@ class SocketCreationException : public std::runtime_error {
 };
 
 class Socket {
-   public:
+public:
     // creates a passive socket, ie a server
     Socket() {
         /*
@@ -115,6 +115,6 @@ class Socket {
 
     ~Socket() { close(this->fd); }
 
-   private:
+private:
     int fd;
 };

@@ -20,7 +20,7 @@ struct RequestKind {
 };
 
 class Request {
-   public:
+public:
     typedef RequestKind Kind;
 
     Kind kind;
