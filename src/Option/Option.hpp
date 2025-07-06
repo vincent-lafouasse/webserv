@@ -11,32 +11,27 @@ public:
 template <typename T>
 class Option {
 public:
+    Option();
+    Option(const Option&);
+    Option& operator=(const Option&);
+    ~Option();
+
     Option(T value);  // converting constructor
-
-    Option() /* noexcept */;
-    Option(const Option&) /* noexcept */;
-    Option& operator=(const Option&) /* noexcept */;
-    ~Option() /* noexcept */;
-
-    // convenience constructors
-
     static Option None();
     static Option Some(T val);
 
     // mutators
-
     void reset();
     void swap(Option&);
 
     // accessors
-
-    // const T* operator->() const; // UB on bad access
-    // const T& operator*() const; // UB on bad access
-
     const T& unwrap() const;  // throws on bad access
     const T& unwrapOr(const T& defaultValue) const /* noexcept */;
 
     operator bool() const /* noexcept */;
+
+    // const T* operator->() const; // UB on bad access
+    // const T& operator*() const; // UB on bad access
 
     typedef BadOptionAccessException BadOptionAccessException;  // reexport
 
