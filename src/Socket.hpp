@@ -99,20 +99,20 @@ class Socket {
     // main usage ?
     std::string getline();
 
-    ssize_t readBytes(void* buffer, std::size_t n) {
-        return read(this->fd, buffer, n);
+    ssize_t read(void* buffer, std::size_t n) {
+        return ::read(this->fd, buffer, n);
     }
 
-    ssize_t writeBytes(void* buffer, std::size_t n) {
-        return write(this->fd, buffer, n);
+    ssize_t write(void* buffer, std::size_t n) {
+        return ::write(this->fd, buffer, n);
     }
 
-    ssize_t sendTo(void* buffer, std::size_t n, int flags) {
-        return send(this->fd, buffer, n, flags);
+    ssize_t send(void* buffer, std::size_t n, int flags) {
+        return ::send(this->fd, buffer, n, flags);
     }
 
-    ssize_t recvFrom(void* buffer, std::size_t n, int flags) {
-        return recv(this->fd, buffer, n, flags);
+    ssize_t recv(void* buffer, std::size_t n, int flags) {
+        return ::recv(this->fd, buffer, n, flags);
     }
 
     ~Socket() { close(this->fd); }
