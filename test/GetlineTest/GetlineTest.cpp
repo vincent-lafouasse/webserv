@@ -61,6 +61,7 @@ TEST(Getline, LongLines) {
 
     S s = getline(f.fd);
     ASSERT_TRUE(s);
+    std::cout << "line: " << s.get() << std::endl;
     ASSERT_TRUE(s.get() == std::string(length, '4'));
 
     s = getline(f.fd);
