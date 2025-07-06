@@ -28,7 +28,7 @@ public:
     const T& unwrap() const;  // throws on bad access
     const T& unwrapOr(const T& defaultValue) const /* noexcept */;
 
-    operator bool() const /* noexcept */;
+    bool is() const;
 
     // const T* operator->() const; // UB on bad access
     // const T& operator*() const; // UB on bad access
@@ -112,6 +112,6 @@ const T& Option<T>::unwrapOr(const T& defaultValue) const {
 }
 
 template <typename T>
-Option<T>::operator bool() const {
+bool Option<T>::is() const {
     return this->isSome;
 }
