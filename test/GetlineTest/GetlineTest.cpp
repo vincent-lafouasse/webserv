@@ -21,7 +21,7 @@ TEST(Getline, Nonexistant) {
     ASSERT_FALSE(getline(f.fd));
 }
 
-const std::string dir = "../../test/GetlineTest";
+const std::string dir = "../../test/GetlineTest/infiles";
 
 TEST(Getline, ShortLines) {
     File f(dir + "/short_lines.txt");
