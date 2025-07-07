@@ -1,22 +1,23 @@
 #pragma once
 
+#include <string>
+#include <utility>
+#include "Option/Option.hpp"
+
 struct RequestKind {
-    enum Kind {
-        Get,
-    };
+    enum Kind { Get, Post, Delete };
+
+    static const std::size_t n = 3;
+    static const std::pair<Kind, const char*> pairs[n];
 
     Kind kind;
 
-    RequestKind(Kind k) : kind(k) {}  // converting ctor
-    // RequestKind parse(string) ? add None variant ? throw ?
-    const char* repr() const {
-        switch (kind) {
-            case Get:
-                return "GET";
-            default:
-                return "Not a valid verb";
-        }
-    }
+    // need defaut ctor for Option hmmm
+    RequestKind() : kind(Get) {}
+    RequestKind(Kind k);  // converting ctor
+    static Option<RequestKind> parse(const std::string&);
+
+    const char* repr() const;
 };
 
 class Request {
