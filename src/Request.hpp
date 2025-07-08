@@ -20,6 +20,7 @@ struct RequestKind {
     const char* repr() const;
 };
 
+// inherit from HttpMessage ? since start-line = request-line | response-line
 class Request {
 public:
     typedef RequestKind Kind;
