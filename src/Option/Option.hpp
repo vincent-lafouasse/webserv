@@ -32,7 +32,7 @@ public:
 
     bool is() const;
 
-    typedef BadOptionAccessException BadOptionAccessException;  // reexport
+    typedef ::BadOptionAccessException BadOptionAccessException;  // reexport
 
 private:
     T val;
