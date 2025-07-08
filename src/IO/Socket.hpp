@@ -63,7 +63,7 @@ public:
         if (this->fd == -1) {
             const int errno_ = errno;
             throw Socket::CreationException(connectionDomain, socketType,
-                                          protocol, errno_);
+                                            protocol, errno_);
         }
 
         // contains IP address as a u32
