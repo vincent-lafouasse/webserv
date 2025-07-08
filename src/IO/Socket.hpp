@@ -35,6 +35,8 @@ private:
 
 class Socket {
 public:
+    typedef ::SocketCreationException CreationException;
+
     // creates a passive socket, ie a server
     Socket() {
         /*
@@ -60,7 +62,7 @@ public:
         this->fd = socket(connectionDomain, socketType, protocol);
         if (this->fd == -1) {
             const int errno_ = errno;
-            throw SocketCreationException(connectionDomain, socketType,
+            throw Socket::CreationException(connectionDomain, socketType,
                                           protocol, errno_);
         }
 
